@@ -10,6 +10,7 @@ const Customer = require("./models/customer");
 const Dept_Desig = require("./models/department_desig");
 const Department = require("./models/department");
 const Designations = require("./models/designation");
+const Employee = require("./models/Employee");
 
 const authRoutes = require("./routes/authRoute");
 const productRoutes= require("./routes/productRoutes");

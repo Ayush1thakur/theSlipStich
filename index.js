@@ -19,6 +19,7 @@ const customerRoutes = require("./routes/customerRoutes");
 const deptDesigRoutes = require('./routes/deptDesigRoutes');
 const departmentRoutes = require('./routes/departmentRoutes');
 const designationRoutes = require('./routes/designationRoutes');
+const employeeRoutes = require('./routes/employeeRoutes');
 // database connect
 connectDB();
 
@@ -38,6 +39,7 @@ app.use("/countries", countryRoutes);
 app.use('/dept-desig', deptDesigRoutes);
 app.use('/departments', departmentRoutes);
 app.use('/designations', designationRoutes);
+app.use('/employees', employeeRoutes);
 
 // rest api
 app.get('/', (req,res)=>{
@@ -55,6 +57,7 @@ app.listen(PORT, async()=>{
         // await sequelize.authenticate();
         // await Customer.sync({});
         await Designations.sync({});
+        await Employee.sync({});
         console.log('SQL Connection has been established successfully.');
         } catch (error) {
 

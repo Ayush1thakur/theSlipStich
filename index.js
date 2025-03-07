@@ -11,6 +11,7 @@ const Dept_Desig = require("./models/department_desig");
 const Department = require("./models/department");
 const Designations = require("./models/designation");
 const Employee = require("./models/Employee");
+const Permissions = require("./models/Permissions");
 
 const authRoutes = require("./routes/authRoute");
 const productRoutes= require("./routes/productRoutes");
@@ -21,6 +22,7 @@ const deptDesigRoutes = require('./routes/deptDesigRoutes');
 const departmentRoutes = require('./routes/departmentRoutes');
 const designationRoutes = require('./routes/designationRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
+const permissionsRoutes = require('./routes/permissionsRoutes');
 // database connect
 connectDB();
 
@@ -41,6 +43,7 @@ app.use('/dept-desig', deptDesigRoutes);
 app.use('/departments', departmentRoutes);
 app.use('/designations', designationRoutes);
 app.use('/employees', employeeRoutes);
+app.use('/permissions', permissionsRoutes);
 
 // rest api
 app.get('/', (req,res)=>{
@@ -59,6 +62,7 @@ app.listen(PORT, async()=>{
         // await Customer.sync({});
         await Designations.sync({});
         await Employee.sync({});
+        await Permissions.sync({});
         console.log('SQL Connection has been established successfully.');
         } catch (error) {
 

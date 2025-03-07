@@ -1,19 +1,24 @@
-// npm i express nodemon dotenv mongoose cookie-parser jsonwebtoken nodemailer otp-generator bcrypt
-
 const express = require("express");
 const { connectDB } = require("./config/database");
-const authRoutes = require("./routes/authRoute");
-const categoryRoutes = require("./routes/categoryRoutes");
-const productRoutes= require("./routes/productRoutes");
 require("dotenv").config();
 const cors= require("cors");
 const sequelize = require("./config/sequaliseDB");
 
-const customerRoutes = require("./routes/customerRoutes");
 const User = require("./models/User");
-const Customer = require("./models/customer");
-const countryRoutes = require('./routes/countryRoutes');
 const Country = require("./models/country");
+const Customer = require("./models/customer");
+const Dept_Desig = require("./models/department_desig");
+const Department = require("./models/department");
+const Designations = require("./models/designation");
+
+const authRoutes = require("./routes/authRoute");
+const productRoutes= require("./routes/productRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
+const countryRoutes = require('./routes/countryRoutes');
+const customerRoutes = require("./routes/customerRoutes");
+const deptDesigRoutes = require('./routes/deptDesigRoutes');
+const departmentRoutes = require('./routes/departmentRoutes');
+const designationRoutes = require('./routes/designationRoutes');
 // database connect
 connectDB();
 
@@ -30,6 +35,9 @@ app.use('/api/v1/category',categoryRoutes);
 app.use('/api/v1/product',productRoutes);
 app.use("/customers", customerRoutes);
 app.use("/countries", countryRoutes);
+app.use('/dept-desig', deptDesigRoutes);
+app.use('/departments', departmentRoutes);
+app.use('/designations', designationRoutes);
 
 // rest api
 app.get('/', (req,res)=>{
@@ -43,15 +51,13 @@ const PORT= process.env.PORT || 4000;
 app.listen(PORT, async()=>{
     try {
         console.log(`Server Running on ${PORT}`);
-
         // sql connection
-        await sequelize.authenticate();
-        await Customer.sync({});
-        await Country.sync({});
+        // await sequelize.authenticate();
+        // await Customer.sync({});
+        await Designations.sync({});
         console.log('SQL Connection has been established successfully.');
         } catch (error) {
 
-        console.error('Unable to connect to the Server:', error);
-        
+        console.error('Unable to connect to the Server:', error);  
     }
 })

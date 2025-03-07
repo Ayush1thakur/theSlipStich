@@ -6,9 +6,7 @@ const Departments = sequelize.define('Department', {
         type: DataTypes.INTEGER,
         primarykey: true,
         autoincrement: true,
-        allowNull:false
-        
-        
+        allowNull:false      
     },
             dname: {
         type: DataTypes.STRING,

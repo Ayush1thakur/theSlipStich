@@ -7,7 +7,13 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const productRoutes= require("./routes/productRoutes");
 require("dotenv").config();
 const cors= require("cors");
+const sequelize = require("./config/sequaliseDB");
 
+const customerRoutes = require("./routes/customerRoutes");
+const User = require("./models/User");
+const Customer = require("./models/customer");
+const countryRoutes = require('./routes/countryRoutes');
+const Country = require("./models/country");
 // database connect
 connectDB();
 
@@ -22,6 +28,8 @@ app.use(express.json());
 app.use('/api/v1/auth',authRoutes);
 app.use('/api/v1/category',categoryRoutes);
 app.use('/api/v1/product',productRoutes);
+app.use("/customers", customerRoutes);
+app.use("/countries", countryRoutes);
 
 // rest api
 app.get('/', (req,res)=>{
@@ -32,6 +40,18 @@ app.get('/', (req,res)=>{
 const PORT= process.env.PORT || 4000;
 
 // run/listen
-app.listen(PORT, ()=>{
-    console.log(`Server Running on ${PORT}`);
+app.listen(PORT, async()=>{
+    try {
+        console.log(`Server Running on ${PORT}`);
+
+        // sql connection
+        await sequelize.authenticate();
+        await Customer.sync({});
+        await Country.sync({});
+        console.log('SQL Connection has been established successfully.');
+        } catch (error) {
+
+        console.error('Unable to connect to the Server:', error);
+        
+    }
 })
